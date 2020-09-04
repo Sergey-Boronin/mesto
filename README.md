@@ -13,4 +13,4 @@
 Разработать функционал добавления новых карточек, повесить код на лайки.
 
 ## Ссылка на GH Pages 
-https://sergey-boronin.github.io/russian-travel/index.html
+https://sergey-boronin.github.io/mesto/index.html
