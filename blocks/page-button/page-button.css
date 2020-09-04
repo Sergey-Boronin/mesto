@@ -5,10 +5,10 @@
   border: none;
 }
 
-.page-button:hover{
+.page-button:hover {
   opacity: .6;
 }
 
-.page-button:focus{
+.page-button:focus {
   outline: none;
 }
