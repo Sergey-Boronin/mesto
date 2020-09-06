@@ -13,3 +13,10 @@
     max-width: 250px;
   }
 }
+
+@media screen and (max-width: 320px) {
+  .profile__job {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

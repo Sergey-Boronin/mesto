@@ -3,6 +3,7 @@
   padding: 0;
   cursor: pointer;
   border: none;
+  transition: opacity .3s linear;
 }
 
 .page-button:hover {

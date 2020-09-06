@@ -13,3 +13,9 @@
     max-width: 250px;
   }
 }
+
+@media screen and (max-width: 320px) {
+  .profile__name {
+    margin-right: 10px;
+  }
+}
