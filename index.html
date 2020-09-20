@@ -73,7 +73,7 @@
       <footer class="footer">
         <p class="footer__text">&copy; 2020 Mesto Russia</p>
       </footer>
-      <section class="popup">
+      <section class="popup popup-edit">
         <div class="popup__container">
           <button type="button" class="popup__close page-button"><img src="./images/close-button-image.svg" alt="Закрыть форму."/></button>
           <div class="popup__content">
@@ -86,6 +86,21 @@
           </div>
         </div>
       </section>
+
+      <section class="popup popup-add">
+        <div class="popup__container">
+          <button type="button" class="popup__close page-button"><img src="./images/close-button-image.svg" alt="Закрыть форму."/></button>
+          <div class="popup__content">
+            <h2 class="popup__title">Новое место</h2>
+            <form name="edit-form" method="POST" action="#" class="popup-add__form">
+              <input name="add-place" class="popup__input popup__input_type_place" type="text" value="" required placeholder="Название">
+              <input name="add-url" class="popup__input popup__input_type_url" type="text" value="" required placeholder="Ссылка на картинку">
+              <button type="submit" class="popup__save popup-create page-button">Создать</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
     </div>
     <template class="card-template">
       <article class="card">

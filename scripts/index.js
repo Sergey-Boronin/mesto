@@ -1,13 +1,21 @@
 //переменные попапа для редактирования профиля
-let popup = document.querySelector('.popup');
-let popupOpenButton = document.querySelector('.profile__edit-button');
-let popupCloseButton = document.querySelector('.popup__close');
+let popupEdit = document.querySelector('.popup-edit');
+let popupEditOpenButton = document.querySelector('.profile__edit-button');
+let popupEditCloseButton = popupEdit.querySelector('.popup__close');
 let profileName = document.querySelector('.profile__name')
 let profileJob = document.querySelector('.profile__job')
-let nameInput = document.querySelector('.popup__input_type_name');
-let jobInput = document.querySelector('.popup__input_type_job');
-let popupSaveButton = document.querySelector('.popup__save');
-let popupForm = document.querySelector('.popup__form')
+let nameInput = popupEdit.querySelector('.popup__input_type_name');
+let jobInput = popupEdit.querySelector('.popup__input_type_job');
+let popupEditSaveButton = popupEdit.querySelector('.popup__save');
+let popupEditForm = popupEdit.querySelector('.popup__form')
+//переменные попапа для добавления места
+let popupAdd = document.querySelector('.popup-add')
+let popupAddOpenButton = document.querySelector('.profile__add-button');
+let popupAddCloseButton = popupAdd.querySelector('.popup__close');
+let placeInput = popupAdd.querySelector('.popup__input_type_place');
+let urlInput = popupAdd.querySelector('.popup__input_type_url');
+let popupAddCreateButton = popupAdd.querySelector('.popup-create');
+let popupAddForm = popupAdd.querySelector('.popup-add__form');
 
 //массив для первичного заполнения карточек
 const initialCards = [
@@ -54,9 +62,10 @@ function renderCard(item) {
 
 render(); //заполнили карточки при открытии страницы
 
-function popupToggle() {
-  popup.classList.toggle("popup_opened");
-  if (popup.classList.contains("popup_opened")) {
+//открытие-закрытие попапа профиля
+function popupEditToggle() {
+  popupEdit.classList.toggle("popup_opened");
+  if (popupEdit.classList.contains("popup_opened")) {
     nameInput.value = profileName.textContent;
     jobInput.value = profileJob.textContent;
   } else {
@@ -64,17 +73,47 @@ function popupToggle() {
     jobInput.value = "";
   }
 }
-
-function formSubmitHandler (evt) {
-  evt.preventDefault()
-  profileName.textContent = nameInput.value
-  profileJob.textContent = jobInput.value
-  popupToggle()
+//открытие-закрытие попапа добавления места
+function popupAddToggle() {
+  popupAdd.classList.toggle("popup_opened");
+  // if (popupAdd.classList.contains("popup_opened")) {
+  //   nameInput.value = profileName.textContent;
+  //   jobInput.value = profileJob.textContent;
+  // } else {
+  //   nameInput.value = "";
+  //   jobInput.value = "";
+  // }
 }
 
-popupOpenButton.addEventListener('click', popupToggle);
-popupCloseButton.addEventListener('click', popupToggle);
-popupForm.addEventListener('submit', formSubmitHandler);
+//сохранение имени и профессии
+function formEditSubmitHandler(evt) {
+  evt.preventDefault();
+  profileName.textContent = nameInput.value;
+  profileJob.textContent = jobInput.value;
+  popupEditToggle();
+}
+
+//добавление нового места
+function formAddSubmitHandler(evt) {
+  evt.preventDefault();
+  const cardTemplate = document.querySelector('.card-template').content;
+  const cardElement = cardTemplate.cloneNode(true);
+  const cardSection = document.querySelector('.cards');
+    cardElement.querySelector('.card__image').src = urlInput.value;
+    cardElement.querySelector('.card__image').alt = placeInput.value;
+    cardElement.querySelector('.card__title').textContent = placeInput.value;
+    cardSection.prepend(cardElement);
+    urlInput.value = "";
+    placeInput.value = "";
+    popupAddToggle();
+}
+
+popupEditOpenButton.addEventListener('click', popupEditToggle);
+popupEditCloseButton.addEventListener('click', popupEditToggle);
+popupEditForm.addEventListener('submit', formEditSubmitHandler);
+popupAddOpenButton.addEventListener('click', popupAddToggle);
+popupAddCloseButton.addEventListener('click', popupAddToggle);
+popupAddForm.addEventListener('submit', formAddSubmitHandler);
 
 
 
