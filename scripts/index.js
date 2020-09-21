@@ -57,6 +57,9 @@ function renderCard(item) {
     cardElement.querySelector('.card__image').src = item.link;
     cardElement.querySelector('.card__image').alt = item.name;
     cardElement.querySelector('.card__title').textContent = item.name;
+    cardElement.querySelector('.card__button').addEventListener('click', function(evt) {
+      evt.target.classList.toggle('card__button_active');
+    })
     cardSection.append(cardElement);
 }
 
@@ -102,6 +105,9 @@ function formAddSubmitHandler(evt) {
     cardElement.querySelector('.card__image').src = urlInput.value;
     cardElement.querySelector('.card__image').alt = placeInput.value;
     cardElement.querySelector('.card__title').textContent = placeInput.value;
+    cardElement.querySelector('.card__button').addEventListener('click', function(evt) {
+      evt.target.classList.toggle('card__button_active');
+    })
     cardSection.prepend(cardElement);
     urlInput.value = "";
     placeInput.value = "";
