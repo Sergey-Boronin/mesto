@@ -60,6 +60,9 @@ function renderCard(item) {
     cardElement.querySelector('.card__button').addEventListener('click', function(evt) {
       evt.target.classList.toggle('card__button_active');
     })
+    cardElement.querySelector('.card__delete-button').addEventListener('click', function(evt) {
+      evt.target.closest('.card').remove();
+    })
     cardSection.append(cardElement);
 }
 
@@ -107,6 +110,9 @@ function formAddSubmitHandler(evt) {
     cardElement.querySelector('.card__title').textContent = placeInput.value;
     cardElement.querySelector('.card__button').addEventListener('click', function(evt) {
       evt.target.classList.toggle('card__button_active');
+    })
+    cardElement.querySelector('.card__delete-button').addEventListener('click', function(evt) {
+      evt.target.closest('.card').remove();
     })
     cardSection.prepend(cardElement);
     urlInput.value = "";
