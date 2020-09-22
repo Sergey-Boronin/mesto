@@ -17,6 +17,9 @@ let urlInput = popupAdd.querySelector('.popup__input_type_url');
 let popupAddCreateButton = popupAdd.querySelector('.popup-create');
 let popupAddForm = popupAdd.querySelector('.popup-add__form');
 
+//переменные попапа для добавления места
+// let popupCloseUp =
+
 //массив для первичного заполнения карточек
 const initialCards = [
   {
@@ -90,6 +93,8 @@ function popupAddToggle() {
   //   jobInput.value = "";
   // }
 }
+
+//открытие-закрытие попапа c картинкой
 
 //сохранение имени и профессии
 function formEditSubmitHandler(evt) {
