@@ -17,8 +17,10 @@ let urlInput = popupAdd.querySelector('.popup__input_type_url');
 let popupAddCreateButton = popupAdd.querySelector('.popup-create');
 let popupAddForm = popupAdd.querySelector('.popup-add__form');
 
-//переменные попапа для добавления места
-// let popupCloseUp =
+//переменные попапа для больших картинок
+popupScale = document.querySelector('.popup-scale')
+popupScaleCloseButton = popupScale.querySelector('.popup-scale__close');
+
 
 //массив для первичного заполнения карточек
 const initialCards = [
@@ -59,6 +61,28 @@ function renderCard(item) {
   const cardSection = document.querySelector('.cards');
     cardElement.querySelector('.card__image').src = item.link;
     cardElement.querySelector('.card__image').alt = item.name;
+    cardElement.querySelector('.card__image').addEventListener('click', function(evt){ // для теста, что передается по клику на сгенерированную картинку
+      popupScale.classList.add('popup_opened');
+      document.querySelector('.popup-scale__image').src = evt.target.src;
+      document.querySelector('.popup-scale__caption').textContent = evt.target.nextElementSibling.firstElementChild.textContent;
+      // const popupTemplate = document.querySelector('.popup-template').content;
+      // const popupElement = popupTemplate.cloneNode(true);
+      // const popupPlace = document.querySelector('.popup-add');
+      console.log(evt.target.src);
+
+      // popupElement.querySelector('.popup-closeup__image').src = evt.target.src;
+      // popupElement.querySelector('.popup-closeup__caption').textContent = evt.target.nextElementSibling.firstElementChild.textContent;
+      // popupPlace.before(popupElement);
+
+
+
+
+      // console.log(evt.target.src);                                                         // для теста, что передается по клику на сгенерированную картинку
+      // console.log(evt.target.nextElementSibling.firstElementChild.textContent);                                                         // для теста, что передается по клику на сгенерированную картинку
+    })
+    // popupElement.querySelector('.popup-closeup__close').addEventListener('click', console.log('lsjdnfjks'))
+
+    // для теста, что передается по клику на сгенерированную картинку
     cardElement.querySelector('.card__title').textContent = item.name;
     cardElement.querySelector('.card__button').addEventListener('click', function(evt) {
       evt.target.classList.toggle('card__button_active');
@@ -70,6 +94,11 @@ function renderCard(item) {
 }
 
 render(); //заполнили карточки при открытии страницы
+
+// function popupCloseupRemove(){
+//   popupElement.remove()
+// }
+
 
 //открытие-закрытие попапа профиля
 function popupEditToggle() {
@@ -112,6 +141,9 @@ function formAddSubmitHandler(evt) {
   const cardSection = document.querySelector('.cards');
     cardElement.querySelector('.card__image').src = urlInput.value;
     cardElement.querySelector('.card__image').alt = placeInput.value;
+    cardElement.querySelector('.card__image').addEventListener('click', function(evt){ // для теста, что передается по клику на сгенерированную картинку
+      console.log(evt.target.closest('.card'));                                                      // для теста, что передается по клику на сгенерированную картинку
+    })                                                                                 // для теста, что передается по клику на сгенерированную картинку
     cardElement.querySelector('.card__title').textContent = placeInput.value;
     cardElement.querySelector('.card__button').addEventListener('click', function(evt) {
       evt.target.classList.toggle('card__button_active');
@@ -125,12 +157,25 @@ function formAddSubmitHandler(evt) {
     popupAddToggle();
 }
 
+function popupScaleClose (){
+  popupScale.classList.remove('popup_opened')
+}
+// let popupCloseupOpener = document.querySelector('.card__image');
+
+
+// popupCloseupOpener.addEventListener('click', function(evt){
+//   console.log(evt.target);
+// })
+
 popupEditOpenButton.addEventListener('click', popupEditToggle);
 popupEditCloseButton.addEventListener('click', popupEditToggle);
 popupEditForm.addEventListener('submit', formEditSubmitHandler);
 popupAddOpenButton.addEventListener('click', popupAddToggle);
 popupAddCloseButton.addEventListener('click', popupAddToggle);
 popupAddForm.addEventListener('submit', formAddSubmitHandler);
+
+popupScaleCloseButton.addEventListener('click', popupScaleClose);
+
 
 
 
