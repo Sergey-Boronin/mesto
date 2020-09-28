@@ -142,7 +142,9 @@ function formAddSubmitHandler(evt) {
     cardElement.querySelector('.card__image').src = urlInput.value;
     cardElement.querySelector('.card__image').alt = placeInput.value;
     cardElement.querySelector('.card__image').addEventListener('click', function(evt){ // для теста, что передается по клику на сгенерированную картинку
-      console.log(evt.target.closest('.card'));                                                      // для теста, что передается по клику на сгенерированную картинку
+      popupScale.classList.add('popup_opened');
+      document.querySelector('.popup-scale__image').src = evt.target.src;
+      document.querySelector('.popup-scale__caption').textContent = evt.target.nextElementSibling.firstElementChild.textContent;                                                   // для теста, что передается по клику на сгенерированную картинку
     })                                                                                 // для теста, что передается по клику на сгенерированную картинку
     cardElement.querySelector('.card__title').textContent = placeInput.value;
     cardElement.querySelector('.card__button').addEventListener('click', function(evt) {
