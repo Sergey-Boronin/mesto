@@ -1,25 +1,25 @@
 //переменные попапа для редактирования профиля
-let popupEdit = document.querySelector(".popup-edit");
-let popupEditOpenButton = document.querySelector(".profile__edit-button");
-let popupEditCloseButton = popupEdit.querySelector(".popup__close");
-let profileName = document.querySelector(".profile__name");
-let profileJob = document.querySelector(".profile__job");
-let nameInput = popupEdit.querySelector(".popup__input_type_name");
-let jobInput = popupEdit.querySelector(".popup__input_type_job");
-let popupEditSaveButton = popupEdit.querySelector(".popup__save");
-let popupEditForm = popupEdit.querySelector(".popup__form");
+const popupEdit = document.querySelector(".popup-edit");
+const popupEditOpenButton = document.querySelector(".profile__edit-button");
+const popupEditCloseButton = popupEdit.querySelector(".popup__close");
+const profileName = document.querySelector(".profile__name");
+const profileJob = document.querySelector(".profile__job");
+const nameInput = popupEdit.querySelector(".popup__input_type_name");
+const jobInput = popupEdit.querySelector(".popup__input_type_job");
+const popupEditSaveButton = popupEdit.querySelector(".popup__save");
+const popupEditForm = popupEdit.querySelector(".popup__form");
 //переменные попапа для добавления места
-let popupAdd = document.querySelector(".popup-add");
-let popupAddOpenButton = document.querySelector(".profile__add-button");
-let popupAddCloseButton = popupAdd.querySelector(".popup__close");
-let placeInput = popupAdd.querySelector(".popup__input_type_place");
-let urlInput = popupAdd.querySelector(".popup__input_type_url");
-let popupAddCreateButton = popupAdd.querySelector(".popup-create");
-let popupAddForm = popupAdd.querySelector(".popup-add__form");
+const popupAdd = document.querySelector(".popup-add");
+const popupAddOpenButton = document.querySelector(".profile__add-button");
+const popupAddCloseButton = popupAdd.querySelector(".popup__close");
+const placeInput = popupAdd.querySelector(".popup__input_type_place");
+const urlInput = popupAdd.querySelector(".popup__input_type_url");
+const popupAddCreateButton = popupAdd.querySelector(".popup-create");
+const popupAddForm = popupAdd.querySelector(".popup-add__form");
 
 //переменные попапа для больших картинок
-popupScale = document.querySelector(".popup-scale");
-popupScaleCloseButton = popupScale.querySelector(".popup__close");
+const popupScale = document.querySelector(".popup-scale");
+const popupScaleCloseButton = popupScale.querySelector(".popup__close");
 
 //массив для первичного заполнения карточек
 const initialCards = [
@@ -58,9 +58,10 @@ function renderCard(item) {
   const cardTemplate = document.querySelector(".card-template").content;
   const cardElement = cardTemplate.cloneNode(true);
   const cardSection = document.querySelector(".cards");
-  cardElement.querySelector(".card__image").src = item.link;
-  cardElement.querySelector(".card__image").alt = item.name;
-  cardElement.querySelector(".card__image").addEventListener("click", function (evt) {
+  const cardImage = cardElement.querySelector(".card__image");
+  cardImage.src = item.link;
+  cardImage.alt = item.name;
+  cardImage.addEventListener("click", function (evt) {
     popupScale.classList.add("popup_opened");
     document.querySelector(".popup-scale__image").src = evt.target.src;
     document.querySelector(".popup-scale__caption").textContent = evt.target.nextElementSibling.firstElementChild.textContent;
@@ -109,9 +110,10 @@ function formAddSubmitHandler(evt) {
   const cardTemplate = document.querySelector(".card-template").content;
   const cardElement = cardTemplate.cloneNode(true);
   const cardSection = document.querySelector(".cards");
-  cardElement.querySelector(".card__image").src = urlInput.value;
-  cardElement.querySelector(".card__image").alt = placeInput.value;
-  cardElement.querySelector(".card__image").addEventListener("click", function (evt) {
+  const cardImage = cardElement.querySelector(".card__image");
+  cardImage.src = urlInput.value;
+  cardImage.alt = placeInput.value;
+  cardImage.addEventListener("click", function (evt) {
     popupScale.classList.add("popup_opened");
     document.querySelector(".popup-scale__image").src = evt.target.src;
     document.querySelector(".popup-scale__caption").textContent = evt.target.nextElementSibling.firstElementChild.textContent;
