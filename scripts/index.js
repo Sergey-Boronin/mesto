@@ -61,7 +61,7 @@ function renderCard(item) {
   const cardSection = document.querySelector('.cards');
     cardElement.querySelector('.card__image').src = item.link;
     cardElement.querySelector('.card__image').alt = item.name;
-    cardElement.querySelector('.card__image').addEventListener('click', function(evt){ // для теста, что передается по клику на сгенерированную картинку
+    cardElement.querySelector('.card__image').addEventListener('click', function(evt){
       popupScale.classList.add('popup_opened');
       document.querySelector('.popup-scale__image').src = evt.target.src;
       document.querySelector('.popup-scale__caption').textContent = evt.target.nextElementSibling.firstElementChild.textContent;
@@ -141,7 +141,6 @@ popupEditForm.addEventListener('submit', formEditSubmitHandler);
 popupAddOpenButton.addEventListener('click', popupAddToggle);
 popupAddCloseButton.addEventListener('click', popupAddToggle);
 popupAddForm.addEventListener('submit', formAddSubmitHandler);
-
 popupScaleCloseButton.addEventListener('click', popupScaleClose);
 
 
