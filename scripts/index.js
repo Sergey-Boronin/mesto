@@ -19,7 +19,7 @@ let popupAddForm = popupAdd.querySelector('.popup-add__form');
 
 //переменные попапа для больших картинок
 popupScale = document.querySelector('.popup-scale')
-popupScaleCloseButton = popupScale.querySelector('.popup-scale__close');
+popupScaleCloseButton = popupScale.querySelector('.popup__close');
 
 
 //массив для первичного заполнения карточек
