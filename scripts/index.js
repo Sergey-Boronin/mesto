@@ -65,24 +65,7 @@ function renderCard(item) {
       popupScale.classList.add('popup_opened');
       document.querySelector('.popup-scale__image').src = evt.target.src;
       document.querySelector('.popup-scale__caption').textContent = evt.target.nextElementSibling.firstElementChild.textContent;
-      // const popupTemplate = document.querySelector('.popup-template').content;
-      // const popupElement = popupTemplate.cloneNode(true);
-      // const popupPlace = document.querySelector('.popup-add');
-      console.log(evt.target.src);
-
-      // popupElement.querySelector('.popup-closeup__image').src = evt.target.src;
-      // popupElement.querySelector('.popup-closeup__caption').textContent = evt.target.nextElementSibling.firstElementChild.textContent;
-      // popupPlace.before(popupElement);
-
-
-
-
-      // console.log(evt.target.src);                                                         // для теста, что передается по клику на сгенерированную картинку
-      // console.log(evt.target.nextElementSibling.firstElementChild.textContent);                                                         // для теста, что передается по клику на сгенерированную картинку
-    })
-    // popupElement.querySelector('.popup-closeup__close').addEventListener('click', console.log('lsjdnfjks'))
-
-    // для теста, что передается по клику на сгенерированную картинку
+})
     cardElement.querySelector('.card__title').textContent = item.name;
     cardElement.querySelector('.card__button').addEventListener('click', function(evt) {
       evt.target.classList.toggle('card__button_active');
@@ -94,11 +77,6 @@ function renderCard(item) {
 }
 
 render(); //заполнили карточки при открытии страницы
-
-// function popupCloseupRemove(){
-//   popupElement.remove()
-// }
-
 
 //открытие-закрытие попапа профиля
 function popupEditToggle() {
@@ -114,13 +92,6 @@ function popupEditToggle() {
 //открытие-закрытие попапа добавления места
 function popupAddToggle() {
   popupAdd.classList.toggle("popup_opened");
-  // if (popupAdd.classList.contains("popup_opened")) {
-  //   nameInput.value = profileName.textContent;
-  //   jobInput.value = profileJob.textContent;
-  // } else {
-  //   nameInput.value = "";
-  //   jobInput.value = "";
-  // }
 }
 
 //открытие-закрытие попапа c картинкой
@@ -141,11 +112,11 @@ function formAddSubmitHandler(evt) {
   const cardSection = document.querySelector('.cards');
     cardElement.querySelector('.card__image').src = urlInput.value;
     cardElement.querySelector('.card__image').alt = placeInput.value;
-    cardElement.querySelector('.card__image').addEventListener('click', function(evt){ // для теста, что передается по клику на сгенерированную картинку
+    cardElement.querySelector('.card__image').addEventListener('click', function(evt){
       popupScale.classList.add('popup_opened');
       document.querySelector('.popup-scale__image').src = evt.target.src;
-      document.querySelector('.popup-scale__caption').textContent = evt.target.nextElementSibling.firstElementChild.textContent;                                                   // для теста, что передается по клику на сгенерированную картинку
-    })                                                                                 // для теста, что передается по клику на сгенерированную картинку
+      document.querySelector('.popup-scale__caption').textContent = evt.target.nextElementSibling.firstElementChild.textContent;
+    })
     cardElement.querySelector('.card__title').textContent = placeInput.value;
     cardElement.querySelector('.card__button').addEventListener('click', function(evt) {
       evt.target.classList.toggle('card__button_active');
@@ -162,12 +133,7 @@ function formAddSubmitHandler(evt) {
 function popupScaleClose (){
   popupScale.classList.remove('popup_opened')
 }
-// let popupCloseupOpener = document.querySelector('.card__image');
 
-
-// popupCloseupOpener.addEventListener('click', function(evt){
-//   console.log(evt.target);
-// })
 
 popupEditOpenButton.addEventListener('click', popupEditToggle);
 popupEditCloseButton.addEventListener('click', popupEditToggle);
