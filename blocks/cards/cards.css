@@ -24,11 +24,7 @@
   .cards {
     grid-template-columns: 282px;
     width: 282px;
-  }
-}
-
-@media screen and (max-width: 625px) {
-  .cards {
     margin-bottom: 48px;
   }
 }
+
