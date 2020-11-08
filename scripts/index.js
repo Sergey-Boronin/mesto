@@ -53,6 +53,18 @@ const initialCards = [
 function render() {
   initialCards.forEach(renderCard);
 }
+
+// function addImagelistener() {
+//     cardImage.addEventListener("click", function (evt) {
+//     popupScaleOpen();
+//     document.querySelector(".popup-scale__image").src = evt.target.src;
+//     document.querySelector(".popup-scale__caption").textContent = evt.target.nextElementSibling.firstElementChild.textContent;
+//   });
+// }
+function addScaleElements(evt) {
+  document.querySelector(".popup-scale__image").src = evt.target.src;
+  document.querySelector(".popup-scale__caption").textContent = evt.target.nextElementSibling.firstElementChild.textContent;
+}
 //создание карточки
 function renderCard(item) {
   const cardTemplate = document.querySelector(".card-template").content;
@@ -62,9 +74,8 @@ function renderCard(item) {
   cardImage.src = item.link;
   cardImage.alt = item.name;
   cardImage.addEventListener("click", function (evt) {
-    popupScale.classList.add("popup_opened");
-    document.querySelector(".popup-scale__image").src = evt.target.src;
-    document.querySelector(".popup-scale__caption").textContent = evt.target.nextElementSibling.firstElementChild.textContent;
+    popupScaleOpen();
+    addScaleElements(evt);
   });
   cardElement.querySelector(".card__title").textContent = item.name;
   cardElement.querySelector(".card__button").addEventListener("click", function (evt) {
@@ -94,7 +105,15 @@ function popupAddToggle() {
   popupAdd.classList.toggle("popup_opened");
 }
 
-//открытие-закрытие попапа c картинкой
+//открытие попапа c картинкой
+function popupScaleOpen() {
+  popupScale.classList.add("popup_opened");
+}
+
+//закрыть попап c картинкой
+function popupScaleClose() {
+  popupScale.classList.remove("popup_opened");
+}
 
 //сохранение имени и профессии
 function formEditSubmitHandler(evt) {
@@ -114,9 +133,8 @@ function formAddSubmitHandler(evt) {
   cardImage.src = urlInput.value;
   cardImage.alt = placeInput.value;
   cardImage.addEventListener("click", function (evt) {
-    popupScale.classList.add("popup_opened");
-    document.querySelector(".popup-scale__image").src = evt.target.src;
-    document.querySelector(".popup-scale__caption").textContent = evt.target.nextElementSibling.firstElementChild.textContent;
+    popupScaleOpen();
+    addScaleElements(evt)
   });
   cardElement.querySelector(".card__title").textContent = placeInput.value;
   cardElement.querySelector(".card__button").addEventListener("click", function (evt) {
@@ -131,9 +149,7 @@ function formAddSubmitHandler(evt) {
   popupAddToggle();
 }
 
-function popupScaleClose() {
-  popupScale.classList.remove("popup_opened");
-}
+
 
 popupEditOpenButton.addEventListener("click", popupEditToggle);
 popupEditCloseButton.addEventListener("click", popupEditToggle);
