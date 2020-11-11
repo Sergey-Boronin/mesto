@@ -50,42 +50,21 @@ const initialCards = [
 ];
 
 // открытие/закрытие всех попапов
-function openEditPopup() {  //открыть форму редактирования
-  popupEdit.classList.add("popup_opened");
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
-  //повесить слушатель зарытия
-  popupEditCloseButton.addEventListener("click", closeEditPopup)
-}
+function openPopup(popup){
+  popup.classList.add("popup_opened")
+};
 
-function closeEditPopup() {  //закрыть форму редактирования
-  popupEdit.classList.remove("popup_opened");
-}
-
-function popupAddToggle() {  //открытие-закрытие попапа добавления места
-  popupAdd.classList.toggle("popup_opened");
-}
-
-function openScalePopup(evt) { //  открыть попап картинки
-  popupScale.classList.add('popup_opened');
-  document.querySelector(".popup-scale__image").src = evt.target.src;
-  document.querySelector(".popup-scale__caption").textContent = evt.target.nextElementSibling.firstElementChild.textContent;
-  //повесить слушатель зарытия
-  popupScaleCloseButton.addEventListener('click', () => {
-    closeScalePopup();
-  })
-}
-
-function closeScalePopup() {  //закрыть попап картинки
-  popupScale.classList.remove('popup_opened')
-}
+function closePopup(popup){
+  popup.classList.remove("popup_opened")
+};
 
 function createCard(name, link) {
   // собрать карточку
   const cardTemplate = document.querySelector(".card-template").content;
   const cardElement = cardTemplate.cloneNode(true);
-  cardElement.querySelector(".card__image").src = link;
-  cardElement.querySelector(".card__image").alt = link;
+  const cardElementImage = cardElement.querySelector(".card__image");
+  cardElementImage.src = link;
+  cardElementImage.alt = link;
   cardElement.querySelector(".card__title").textContent = name;
   // добавить слушатели
   cardElement.querySelector(".card__button").addEventListener("click", (evt) => { //кнопка лайка
@@ -94,22 +73,24 @@ function createCard(name, link) {
   cardElement.querySelector(".card__delete-button").addEventListener("click", (evt) => { // кнопка удаления карточки
     evt.target.closest(".card").remove();
   });
-  cardElement.querySelector(".card__image").addEventListener("click", (evt) => { // кнопка закрытия окна с картинкой
-    openScalePopup(evt)
+  cardElementImage.addEventListener("click", (evt) => { // поймать клик на картинке
+    openPopup(popupScale);
+    document.querySelector(".popup-scale__image").src = evt.target.src;
+    document.querySelector(".popup-scale__caption").textContent = evt.target.nextElementSibling.firstElementChild.textContent;
   });
   return cardElement;
-}
+};
 
 //добавить карточку
 function addCard(container, element) {
   container.prepend(element);
-}
+};
 
 function render() {
   initialCards.reverse().forEach((card) => { //массив инвертирован, чтобы не писать вторую функцию с методом .append для добавления новой карточки
     addCard(cardSection, createCard(card.name, card.link));
   });
-}
+};
 
 render();  //заполнить карточки из массива при открытии страницы
 
@@ -118,25 +99,31 @@ function formEditSubmitHandler(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  //очистить инпуты перед закрытием
-  nameInput.value = "";
-  jobInput.value = "";
-  closeEditPopup();
-}
+  closePopup(popupEdit);
+};
 
 //добавление нового места
 function formAddSubmitHandler(evt) {
   evt.preventDefault();
   addCard(cardSection, createCard(placeInput.value, urlInput.value));
-  //очистить импуты перед закрытиием
-  urlInput.value = "";
-  placeInput.value = "";
-  popupAddToggle();
-}
+  //очистить форму перед закрытиием
+  popupAddForm.reset();
+  closePopup(popupAdd);
+};
 
 // остальные слушатели
-popupEditOpenButton.addEventListener("click", openEditPopup);
-popupAddOpenButton.addEventListener("click", popupAddToggle);
-popupAddCloseButton.addEventListener("click", popupAddToggle);
+popupEditOpenButton.addEventListener("click", () => {
+  openPopup(popupEdit);
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
+});
+popupEditCloseButton.addEventListener("click", () => {closePopup(popupEdit)
+});
+popupAddOpenButton.addEventListener("click", () => {openPopup(popupAdd)
+});
+popupAddCloseButton.addEventListener("click", () => {closePopup(popupAdd)
+});
+popupScaleCloseButton.addEventListener('click', () => {closePopup(popupScale)
+});
 popupEditForm.addEventListener("submit", formEditSubmitHandler);
 popupAddForm.addEventListener("submit", formAddSubmitHandler);
