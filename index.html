@@ -36,9 +36,9 @@
           <div class="popup__content">
             <h2 class="popup__title">Редактировать профиль</h2>
             <form name="edit-form" method="POST" action="#" class="popup__form">
-              <input id="name-input" name="edit-name" class="popup__input popup__input_type_name" type="text" value="" required />
+              <input id="name-input" name="edit-name" class="popup__input popup__input_type_name" type="text" value="" required minlength="2" maxlength="40"/>
               <span id="name-input-error" class="popup__error-text"></span>
-              <input id="job-input" name="edit-job" class="popup__input popup__input_type_job" type="text" value="" required />
+              <input id="job-input" name="edit-job" class="popup__input popup__input_type_job" type="text" value="" required minlength="2" maxlength="200"/>
               <span id="job-input-error" class="popup__error-text"></span>
               <button type="submit" class="popup__save page-button">Сохранить</button>
             </form>
@@ -52,9 +52,9 @@
           <div class="popup__content">
             <h2 class="popup__title">Новое место</h2>
             <form name="edit-form" method="POST" action="#" class="popup-add__form">
-              <input id="place-input" name="add-place" class="popup__input popup__input_type_place" type="text" value="" required placeholder="Название" />
+              <input id="place-input" name="add-place" class="popup__input popup__input_type_place" type="text" value="" placeholder="Название" required minlength="2" maxlength="30"/>
               <span id="place-input-error" class="popup__error-text"></span>
-              <input id="url-input" name="add-url" class="popup__input popup__input_type_url" type="url" value="" required placeholder="Ссылка на картинку" />
+              <input id="url-input" name="add-url" class="popup__input popup__input_type_url" type="url" value="" placeholder="Ссылка на картинку" required />
               <span id="url-input-error" class="popup__error-text"></span>
               <button type="submit" class="popup__save popup-create page-button">Создать</button>
             </form>
