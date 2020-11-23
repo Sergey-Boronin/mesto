@@ -109,6 +109,14 @@ function formAddSubmitHandler(evt) {
   closePopup(popupAdd);
 };
 
+//отключить кнопку при посторном открытии окна добавления места
+function resetSubmitButtonState(popup, config) {
+  const addSubmitButton = popup.querySelector(config.submitButtonSelector);
+  addSubmitButton.disabled = true;
+  addSubmitButton.classList.add(config.buttonInvalidClass);
+
+}
+
 // остальные слушатели
 popupEditOpenButton.addEventListener("click", () => {
   openPopup(popupEdit);
@@ -118,10 +126,8 @@ popupEditOpenButton.addEventListener("click", () => {
 popupEditCloseButton.addEventListener("click", () => {closePopup(popupEdit)
 });
 popupAddOpenButton.addEventListener("click", () => {
-  const addSubmitButton = popupAdd.querySelector('.popup__button');
   openPopup(popupAdd);
-  addSubmitButton.disabled = true;
-  addSubmitButton.classList.add('popup__button_invalid');
+  resetSubmitButtonState(popupAdd, validationConfig)
 });
 popupAddCloseButton.addEventListener("click", () => {closePopup(popupAdd)
 });
