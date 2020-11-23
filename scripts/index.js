@@ -19,6 +19,11 @@ const popupScale = document.querySelector(".popup-scale");
 const popupScaleCloseButton = popupScale.querySelector(".popup__close");
 // переменные для добавления карточек
 const cardSection = document.querySelector(".cards");
+// переменные для форм
+const editForm = document.querySelector('.popup-edit__form');
+const addForm = document.querySelector('.popup-add__form');
+
+
 //массив для первичного заполнения карточек
 const initialCards = [
   {
@@ -47,13 +52,42 @@ const initialCards = [
   },
 ];
 
+function popupMousedownHandler(evt){
+  if (evt.target.classList.contains('popup')){
+    closePopup(evt.target);
+  }
+};
+
+function popupKeydownHandler(evt) {
+  if(evt.key === "Escape"){
+    closePopup(document.querySelector('.popup_opened'));
+  }
+};
+
 // открытие/закрытие всех попапов
 function openPopup(popup){
-  popup.classList.add("popup_opened")
+  popup.classList.add("popup_opened");
+  popup.addEventListener('mousedown', popupMousedownHandler);
+  document.addEventListener('keydown', popupKeydownHandler);
 };
+
+
+function resetValidation (form, config) {
+  const inputs = form.querySelectorAll('.popup__input')
+  const errors = form.querySelectorAll('.popup__input-error')
+  inputs.forEach((input) => {
+    input.classList.remove(config.inputInvalidClass);
+  })
+  errors.forEach((error) => {
+    error.textContent = '';
+  })
+}
 
 function closePopup(popup){
   popup.classList.remove("popup_opened")
+  popup.removeEventListener('mousedown', popupMousedownHandler);
+  document.removeEventListener('keydown', popupKeydownHandler);
+  resetValidation(editForm, validationConfig)
 };
 
 function createCard(name, link) {
@@ -109,12 +143,12 @@ function formAddSubmitHandler(evt) {
   closePopup(popupAdd);
 };
 
-//отключить кнопку при посторном открытии окна добавления места
+//отключить кнопку при повторном открытии окна добавления места
 function resetSubmitButtonState(popup, config) {
   const addSubmitButton = popup.querySelector(config.submitButtonSelector);
+  // nameInput.classList.remove('config.inputInvalidClass');
   addSubmitButton.disabled = true;
   addSubmitButton.classList.add(config.buttonInvalidClass);
-
 }
 
 // остальные слушатели
@@ -127,7 +161,7 @@ popupEditCloseButton.addEventListener("click", () => {closePopup(popupEdit)
 });
 popupAddOpenButton.addEventListener("click", () => {
   openPopup(popupAdd);
-  resetSubmitButtonState(popupAdd, validationConfig)
+  resetSubmitButtonState(popupAdd, validationConfig);
 });
 popupAddCloseButton.addEventListener("click", () => {closePopup(popupAdd)
 });
@@ -135,4 +169,6 @@ popupScaleCloseButton.addEventListener('click', () => {closePopup(popupScale)
 });
 popupEditForm.addEventListener("submit", formEditSubmitHandler);
 popupAddForm.addEventListener("submit", formAddSubmitHandler);
+
+
 

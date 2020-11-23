@@ -1,12 +1,12 @@
 function showError(form, input, config) {
   const error = form.querySelector(`#${input.id}-error`);
   error.textContent = input.validationMessage;
-  input.classList.add(config.inputInvalidClas)
+  input.classList.add(config.inputInvalidClass)
 }
 function hideError(form, input, config) {
   const error = form.querySelector(`#${input.id}-error`);
   error.textContent = '';
-  input.classList.remove(config.inputInvalidClas)
+  input.classList.remove(config.inputInvalidClass)
 }
 
 function checkInputValidity(form, input, config) {
