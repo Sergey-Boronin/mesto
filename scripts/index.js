@@ -117,7 +117,11 @@ popupEditOpenButton.addEventListener("click", () => {
 });
 popupEditCloseButton.addEventListener("click", () => {closePopup(popupEdit)
 });
-popupAddOpenButton.addEventListener("click", () => {openPopup(popupAdd)
+popupAddOpenButton.addEventListener("click", () => {
+  const addSubmitButton = popupAdd.querySelector('.popup__button');
+  openPopup(popupAdd);
+  addSubmitButton.disabled = true;
+  addSubmitButton.classList.add('popup__button_invalid');
 });
 popupAddCloseButton.addEventListener("click", () => {closePopup(popupAdd)
 });
@@ -125,3 +129,4 @@ popupScaleCloseButton.addEventListener('click', () => {closePopup(popupScale)
 });
 popupEditForm.addEventListener("submit", formEditSubmitHandler);
 popupAddForm.addEventListener("submit", formAddSubmitHandler);
+
