@@ -17,7 +17,6 @@ function checkInputValidity(form, input, config) {
   }
 }
 
-
 function setButtonState (button, isActive, config) {
   if(isActive){
     button.classList.remove(config.buttonInvalidClass);

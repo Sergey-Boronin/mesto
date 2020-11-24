@@ -146,7 +146,6 @@ function formAddSubmitHandler(evt) {
 //отключить кнопку при повторном открытии окна добавления места
 function resetSubmitButtonState(popup, config) {
   const addSubmitButton = popup.querySelector(config.submitButtonSelector);
-  // nameInput.classList.remove('config.inputInvalidClass');
   addSubmitButton.disabled = true;
   addSubmitButton.classList.add(config.buttonInvalidClass);
 }
