@@ -7,6 +7,7 @@ const profileJob = document.querySelector(".profile__job");
 const nameInput = popupEdit.querySelector(".popup__input_type_name");
 const jobInput = popupEdit.querySelector(".popup__input_type_job");
 const popupEditForm = popupEdit.querySelector(".popup-edit__form");
+const editSubmitButton = popupEdit.querySelector('.popup__button')
 //переменные попапа для добавления места
 const popupAdd = document.querySelector(".popup-add");
 const popupAddOpenButton = document.querySelector(".profile__add-button");
@@ -20,9 +21,6 @@ const popupScaleCloseButton = popupScale.querySelector(".popup__close");
 // переменные для добавления карточек
 const cardSection = document.querySelector(".cards");
 // переменные для форм
-const editForm = document.querySelector('.popup-edit__form');
-const addForm = document.querySelector('.popup-add__form');
-
 
 //массив для первичного заполнения карточек
 const initialCards = [
@@ -72,22 +70,30 @@ function openPopup(popup){
 };
 
 
-function resetValidation (form, config) {
-  const inputs = form.querySelectorAll('.popup__input')
-  const errors = form.querySelectorAll('.popup__input-error')
-  inputs.forEach((input) => {
-    input.classList.remove(config.inputInvalidClass);
-  })
-  errors.forEach((error) => {
-    error.textContent = '';
-  })
-}
+function resetValidation (config) {
+  const forms = document.querySelectorAll(config.formSelector)
+  forms.forEach((form) => {
+    const inputs = form.querySelectorAll(config.inputSelector);
+    inputs.forEach((input) => {
+      input.classList.remove(config.inputInvalidClass);
+    })
+    const errors = form.querySelectorAll(config.formError);
+    errors.forEach((error) => {
+      error.textContent = '';
+    })
+    const buttons = form.querySelectorAll(config.submitButtonSelector);
+    buttons.forEach((button) => {
+      button.disabled = false;
+      button.classList.remove(config.buttonInvalidClass);
+    });
+  });
+};
 
 function closePopup(popup){
   popup.classList.remove("popup_opened")
   popup.removeEventListener('mousedown', popupMousedownHandler);
   document.removeEventListener('keydown', popupKeydownHandler);
-  resetValidation(editForm, validationConfig)
+  resetValidation(validationConfig)
 };
 
 function createCard(name, link) {
@@ -144,10 +150,12 @@ function formAddSubmitHandler(evt) {
 };
 
 //отключить кнопку при повторном открытии окна добавления места
-function resetSubmitButtonState(popup, config) {
+function resetAddValidation(popup, config) {
   const addSubmitButton = popup.querySelector(config.submitButtonSelector);
   addSubmitButton.disabled = true;
   addSubmitButton.classList.add(config.buttonInvalidClass);
+  placeInput.value = '';
+  urlInput.value = '';
 }
 
 // остальные слушатели
@@ -156,13 +164,15 @@ popupEditOpenButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 });
-popupEditCloseButton.addEventListener("click", () => {closePopup(popupEdit)
+popupEditCloseButton.addEventListener("click", () => {
+  closePopup(popupEdit);
 });
 popupAddOpenButton.addEventListener("click", () => {
   openPopup(popupAdd);
-  resetSubmitButtonState(popupAdd, validationConfig);
+  resetAddValidation(popupAdd, validationConfig);
 });
-popupAddCloseButton.addEventListener("click", () => {closePopup(popupAdd)
+popupAddCloseButton.addEventListener("click", () => {
+  closePopup(popupAdd);
 });
 popupScaleCloseButton.addEventListener('click', () => {closePopup(popupScale)
 });
