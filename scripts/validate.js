@@ -36,7 +36,7 @@ function setEventListeners(form, config) {
       checkInputValidity(form, input, config);
       setButtonState (submitButton, form.checkValidity(), config)
     });
-  });
+  })
 }
 
 function enableValidation(config) {
@@ -44,6 +44,19 @@ function enableValidation(config) {
   forms.forEach((form) => {
     setEventListeners(form, config);
   })
+}
+
+function resetValidation(form, config, buttonState, resetStyle) {
+  inputs = form.querySelectorAll(config.inputSelector);
+  inputs.forEach((input) => {
+    input.classList.remove(config.inputInvalidClass);
+  });
+  const errors = form.querySelectorAll(config.formError);
+  errors.forEach((error) => {
+    error.textContent = '';
+  })
+  const button = form.querySelector(config.submitButtonSelector);
+  setButtonState(button, false, config);
 }
 
 const validationConfig = {

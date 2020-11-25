@@ -22,79 +22,30 @@ const popupScaleCloseButton = popupScale.querySelector(".popup__close");
 const cardSection = document.querySelector(".cards");
 // переменные для форм
 
-//массив для первичного заполнения карточек
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
-
 function popupMousedownHandler(evt){
   if (evt.target.classList.contains('popup')){
     closePopup(evt.target);
   }
-};
+}
 
 function popupKeydownHandler(evt) {
   if(evt.key === "Escape"){
     closePopup(document.querySelector('.popup_opened'));
   }
-};
+}
 
 // открытие/закрытие всех попапов
 function openPopup(popup){
   popup.classList.add("popup_opened");
   popup.addEventListener('mousedown', popupMousedownHandler);
   document.addEventListener('keydown', popupKeydownHandler);
-};
-
-
-function resetValidation (config) {
-  const forms = document.querySelectorAll(config.formSelector)
-  forms.forEach((form) => {
-    const inputs = form.querySelectorAll(config.inputSelector);
-    inputs.forEach((input) => {
-      input.classList.remove(config.inputInvalidClass);
-    })
-    const errors = form.querySelectorAll(config.formError);
-    errors.forEach((error) => {
-      error.textContent = '';
-    })
-    const buttons = form.querySelectorAll(config.submitButtonSelector);
-    buttons.forEach((button) => {
-      button.disabled = false;
-      button.classList.remove(config.buttonInvalidClass);
-    });
-  });
-};
+}
 
 function closePopup(popup){
   popup.classList.remove("popup_opened")
   popup.removeEventListener('mousedown', popupMousedownHandler);
   document.removeEventListener('keydown', popupKeydownHandler);
-  resetValidation(validationConfig)
-};
+}
 
 function createCard(name, link) {
   // собрать карточку
@@ -117,18 +68,18 @@ function createCard(name, link) {
     document.querySelector(".popup-scale__caption").textContent = evt.target.nextElementSibling.firstElementChild.textContent;
   });
   return cardElement;
-};
+}
 
 //добавить карточку
 function addCard(container, element) {
   container.prepend(element);
-};
+}
 
 function render() {
   initialCards.reverse().forEach((card) => { //массив инвертирован, чтобы не писать вторую функцию с методом .append для добавления новой карточки
     addCard(cardSection, createCard(card.name, card.link));
   });
-};
+}
 
 render();  //заполнить карточки из массива при открытии страницы
 
@@ -138,7 +89,7 @@ function formEditSubmitHandler(evt) {
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
   closePopup(popupEdit);
-};
+}
 
 //добавление нового места
 function formAddSubmitHandler(evt) {
@@ -147,20 +98,12 @@ function formAddSubmitHandler(evt) {
   //очистить форму перед закрытиием
   popupAddForm.reset();
   closePopup(popupAdd);
-};
-
-//отключить кнопку при повторном открытии окна добавления места
-function resetAddValidation(popup, config) {
-  const addSubmitButton = popup.querySelector(config.submitButtonSelector);
-  addSubmitButton.disabled = true;
-  addSubmitButton.classList.add(config.buttonInvalidClass);
-  placeInput.value = '';
-  urlInput.value = '';
 }
 
 // остальные слушатели
 popupEditOpenButton.addEventListener("click", () => {
   openPopup(popupEdit);
+  resetValidation(popupEditForm, validationConfig);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 });
@@ -169,7 +112,9 @@ popupEditCloseButton.addEventListener("click", () => {
 });
 popupAddOpenButton.addEventListener("click", () => {
   openPopup(popupAdd);
-  resetAddValidation(popupAdd, validationConfig);
+  resetValidation(popupAddForm, validationConfig);
+  placeInput.value = '';
+  urlInput.value = '';
 });
 popupAddCloseButton.addEventListener("click", () => {
   closePopup(popupAdd);
