@@ -46,8 +46,8 @@ function enableValidation(config) {
   })
 }
 
-function resetValidation(form, config, buttonState, resetStyle) {
-  inputs = form.querySelectorAll(config.inputSelector);
+function resetValidation(form, config) {
+  const inputs = form.querySelectorAll(config.inputSelector);
   inputs.forEach((input) => {
     input.classList.remove(config.inputInvalidClass);
   });
