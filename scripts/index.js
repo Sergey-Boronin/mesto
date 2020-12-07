@@ -1,3 +1,6 @@
+import {openPopup, closePopup} from './utils.js';
+import {initialCards} from './initialCards.js'
+
 //переменные попапа для редактирования профиля
 const popupEdit = document.querySelector(".popup-edit");
 const popupEditOpenButton = document.querySelector(".profile__edit-button");
@@ -22,30 +25,7 @@ const popupScaleCloseButton = popupScale.querySelector(".popup__close");
 const cardSection = document.querySelector(".cards");
 // переменные для форм
 
-function popupMousedownHandler(evt){
-  if (evt.target.classList.contains('popup')){
-    closePopup(evt.target);
-  }
-}
 
-function popupKeydownHandler(evt) {
-  if(evt.key === "Escape"){
-    closePopup(document.querySelector('.popup_opened'));
-  }
-}
-
-// открытие/закрытие всех попапов
-function openPopup(popup){
-  popup.classList.add("popup_opened");
-  popup.addEventListener('mousedown', popupMousedownHandler);
-  document.addEventListener('keydown', popupKeydownHandler);
-}
-
-function closePopup(popup){
-  popup.classList.remove("popup_opened")
-  popup.removeEventListener('mousedown', popupMousedownHandler);
-  document.removeEventListener('keydown', popupKeydownHandler);
-}
 
 function createCard(name, link) {
   // собрать карточку

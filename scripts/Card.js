@@ -1,3 +1,5 @@
+import {openPopup} from './utils.js'
+
 class Card {
   constructor(name, link, template) {
     this._name = name;
