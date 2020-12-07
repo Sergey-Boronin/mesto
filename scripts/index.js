@@ -1,5 +1,6 @@
 import {openPopup, closePopup} from './utils.js';
 import {initialCards} from './initialCards.js'
+import { Card } from './Card.js';
 
 //переменные попапа для редактирования профиля
 const popupEdit = document.querySelector(".popup-edit");
@@ -25,40 +26,18 @@ const popupScaleCloseButton = popupScale.querySelector(".popup__close");
 const cardSection = document.querySelector(".cards");
 // переменные для форм
 
-
-
-function createCard(name, link) {
-  // собрать карточку
-  const cardTemplate = document.querySelector(".card-template").content;
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardElementImage = cardElement.querySelector(".card__image");
-  cardElementImage.src = link;
-  cardElementImage.alt = link;
-  cardElement.querySelector(".card__title").textContent = name;
-  // добавить слушатели
-  cardElement.querySelector(".card__button").addEventListener("click", (evt) => { //кнопка лайка
-    evt.target.classList.toggle("card__button_active");
-  });
-  cardElement.querySelector(".card__delete-button").addEventListener("click", (evt) => { // кнопка удаления карточки
-    evt.target.closest(".card").remove();
-  });
-  cardElementImage.addEventListener("click", (evt) => { // поймать клик на картинке
-    openPopup(popupScale);
-    document.querySelector(".popup-scale__image").src = evt.target.src;
-    document.querySelector(".popup-scale__caption").textContent = evt.target.nextElementSibling.firstElementChild.textContent;
-  });
-  return cardElement;
-}
-
 //добавить карточку
 function addCard(container, element) {
   container.prepend(element);
 }
 
-function render() {
-  initialCards.reverse().forEach((card) => { //массив инвертирован, чтобы не писать вторую функцию с методом .append для добавления новой карточки
-    addCard(cardSection, createCard(card.name, card.link));
-  });
+function render () {
+  initialCards.forEach(function (item) {
+      const card = new Card(item.name, item.link, '.card-template');
+      const cardElement = card.generateCard();
+      // const cardSection = document.querySelector(".cards");
+      addCard(cardSection, cardElement)
+    })
 }
 
 render();  //заполнить карточки из массива при открытии страницы
@@ -74,7 +53,9 @@ function formEditSubmitHandler(evt) {
 //добавление нового места
 function formAddSubmitHandler(evt) {
   evt.preventDefault();
-  addCard(cardSection, createCard(placeInput.value, urlInput.value));
+  const card = new Card(placeInput.value, urlInput.value, '.card-template');
+  const cardElement = card.generateCard();
+  addCard(cardSection, cardElement);
   //очистить форму перед закрытиием
   popupAddForm.reset();
   closePopup(popupAdd);

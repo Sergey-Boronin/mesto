@@ -1,6 +1,6 @@
 import {openPopup} from './utils.js'
 
-class Card {
+export class Card {
   constructor(name, link, template) {
     this._name = name;
     this._link = link;
@@ -46,22 +46,20 @@ class Card {
   generateCard() {
     this._element = this._getTemplate();
     this._setEventListeners();
-
-
     const elementImage = this._element.querySelector(".card__image");
     elementImage.src = this._link;
     elementImage.alt = this._name;
     this._element.querySelector(".card__title").textContent = this._name;
-    return this._element
-  }
+    return this._element;
+  };
   };
 
-function render () {
-  initCards.forEach(function (item) {
-      const card = new Card(item.name, item.link, '.card-template');
-      const cardElement = card.generateCard();
-      const cardSection = document.querySelector(".cards");
+// function render () {
+//   initCards.forEach(function (item) {
+//       const card = new Card(item.name, item.link, '.card-template');
+//       const cardElement = card.generateCard();
+//       const cardSection = document.querySelector(".cards");
 
-      cardSection.append(cardElement);
-    })
-}
+//       cardSection.append(cardElement);
+//     })
+// }
