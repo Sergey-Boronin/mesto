@@ -1,6 +1,13 @@
 import {openPopup, closePopup} from './utils.js';
-import {initialCards} from './initialCards.js'
-import { Card } from './Card.js';
+import {initialCards} from './initialCards.js';
+import {Card} from './Card.js';
+import {FormValidator} from './FormValidator.js';
+import {validationConfig} from './constants.js';
+
+const editFormValidator = new FormValidator(document.querySelector('.popup-edit__form'), validationConfig);
+editFormValidator.enableValidation();
+const addFormValidator = new FormValidator(document.querySelector('.popup-add__form'), validationConfig);
+addFormValidator.enableValidation();
 
 //переменные попапа для редактирования профиля
 const popupEdit = document.querySelector(".popup-edit");
@@ -64,7 +71,7 @@ function formAddSubmitHandler(evt) {
 // остальные слушатели
 popupEditOpenButton.addEventListener("click", () => {
   openPopup(popupEdit);
-  resetValidation(popupEditForm, validationConfig);
+  editFormValidator.resetValidation()
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 });
@@ -73,7 +80,7 @@ popupEditCloseButton.addEventListener("click", () => {
 });
 popupAddOpenButton.addEventListener("click", () => {
   openPopup(popupAdd);
-  resetValidation(popupAddForm, validationConfig);
+  addFormValidator.resetValidation();
   placeInput.value = '';
   urlInput.value = '';
 });
