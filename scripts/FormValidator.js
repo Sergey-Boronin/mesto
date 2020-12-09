@@ -22,7 +22,6 @@ export class FormValidator {
       this._showError();
     } else {
       this._hideError();
-      console.log(this._input.validity.valid);
     }
   };
 
@@ -40,7 +39,6 @@ export class FormValidator {
 
   _setEventListeners() {
     const inputsList = this._form.querySelectorAll(this._config.inputSelector);
-    console.log(inputsList)
     const submitButton = this._form.querySelector(this._config.submitButtonSelector);
     inputsList.forEach((input) => {
       input.addEventListener('input', () => {
