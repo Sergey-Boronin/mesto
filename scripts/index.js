@@ -18,7 +18,6 @@ const profileJob = document.querySelector(".profile__job");
 const nameInput = popupEdit.querySelector(".popup__input_type_name");
 const jobInput = popupEdit.querySelector(".popup__input_type_job");
 const popupEditForm = popupEdit.querySelector(".popup-edit__form");
-const editSubmitButton = popupEdit.querySelector('.popup__button')
 //переменные попапа для добавления места
 const popupAdd = document.querySelector(".popup-add");
 const popupAddOpenButton = document.querySelector(".profile__add-button");
