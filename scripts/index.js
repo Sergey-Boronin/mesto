@@ -1,8 +1,7 @@
 import {openPopup, closePopup} from './utils.js';
-import {initialCards} from './initialCards.js';
 import {Card} from './Card.js';
 import {FormValidator} from './FormValidator.js';
-import {validationConfig} from './constants.js';
+import {validationConfig, initialCards} from './constants.js';
 
 const editFormValidator = new FormValidator(document.querySelector('.popup-edit__form'), validationConfig);
 editFormValidator.enableValidation();

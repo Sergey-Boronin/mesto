@@ -1,4 +1,5 @@
 import { openPopup } from './utils.js'
+import {popupScaleImage, popupScaleCaption} from './constants.js';
 export class Card {
   constructor(name, link, template) {
     this._name = name;
@@ -37,8 +38,8 @@ export class Card {
 
   _handleOpenImage() {
     openPopup(document.querySelector(".popup-scale"));
-    document.querySelector(".popup-scale__image").src = this._link;
-    document.querySelector(".popup-scale__caption").textContent = this._name;
+    popupScaleImage.src = this._link;
+    popupScaleCaption.textContent = this._name;
   };
 
   generateCard() {
