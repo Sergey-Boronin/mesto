@@ -3,6 +3,7 @@ import {initialCards} from './initialCards.js';
 import {Card} from './Card.js';
 import {FormValidator} from './FormValidator.js';
 import {validationConfig} from './constants.js';
+import {Section} from './Section.js';
 
 const editFormValidator = new FormValidator(document.querySelector('.popup-edit__form'), validationConfig);
 editFormValidator.enableValidation();
@@ -30,23 +31,20 @@ const popupScale = document.querySelector(".popup-scale");
 const popupScaleCloseButton = popupScale.querySelector(".popup__close");
 // переменные для добавления карточек
 const cardSection = document.querySelector(".cards");
-// переменные для форм
 
-//добавить карточку
-function addCard(container, element) {
-  container.prepend(element);
-}
+const cardList = new Section ({
+  items: initialCards,
+  renderer: (item) => { // становится пареметром конструктора Section - renderedItems
+  const card = new Card(item.name, item.link, '.card-template');
+  const cardElement = card.generateCard();
 
-function render () {
-  initialCards.forEach(function (item) {
-      const card = new Card(item.name, item.link, '.card-template');
-      const cardElement = card.generateCard();
-      // const cardSection = document.querySelector(".cards");
-      addCard(cardSection, cardElement)
-    })
-}
+  cardList.addItem(cardElement)
+},
+},
+cardSection
+);
 
-render();  //заполнить карточки из массива при открытии страницы
+cardList.renderItems();
 
 //сохранение имени и профессии
 function formEditSubmitHandler(evt) {
@@ -56,16 +54,17 @@ function formEditSubmitHandler(evt) {
   closePopup(popupEdit);
 }
 
-//добавление нового места
+
 function formAddSubmitHandler(evt) {
   evt.preventDefault();
   const card = new Card(placeInput.value, urlInput.value, '.card-template');
   const cardElement = card.generateCard();
-  addCard(cardSection, cardElement);
+  cardList.addItem(cardElement);
   //очистить форму перед закрытиием
   popupAddForm.reset();
   closePopup(popupAdd);
 }
+
 
 // остальные слушатели
 popupEditOpenButton.addEventListener("click", () => {
