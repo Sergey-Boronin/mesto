@@ -1,10 +1,9 @@
-import { openPopup } from './utils.js'
-import {popupScaleImage, popupScaleCaption} from './constants.js';
 export class Card {
-  constructor(name, link, template) {
+  constructor(name, link, template, handleCardClick) {
     this._name = name;
     this._link = link;
     this._template = template;
+    this._handleCardClick = handleCardClick;
   };
 
   _getTemplate() {
@@ -24,7 +23,7 @@ export class Card {
       this._handleDeleteCard();
     });
     this._element.querySelector(".card__image").addEventListener('click', () => {
-      this._handleOpenImage();
+      this._handleCardClick(this._name, this._link);
     });
   };
 
@@ -34,12 +33,6 @@ export class Card {
 
   _handleDeleteCard() {
     this._element.remove()
-  };
-
-  _handleOpenImage() {
-    openPopup(document.querySelector(".popup-scale"));
-    popupScaleImage.src = this._link;
-    popupScaleCaption.textContent = this._name;
   };
 
   generateCard() {
@@ -52,3 +45,4 @@ export class Card {
     return this._element;
   };
 };
+
