@@ -1,21 +1,19 @@
 import './index.css';
-import {initialCards} from '../scripts/initialCards.js';
-import {Card} from '../scripts/components/Card.js'
-import {FormValidator} from '../scripts/components/FormValidator.js';
-import {Section} from '../scripts/components/Section.js';
-import {PopupWithImage} from '../scripts/components/PopupWithImage.js';
-import {PopupWithForm} from '../scripts/components/PopupWithForm.js';
-import {UserInfo} from '../scripts/components/UserInfo.js';
+import { initialCards } from '../scripts/utils/initialCards.js';
+import { Card } from '../scripts/components/Card.js'
+import { FormValidator } from '../scripts/components/FormValidator.js';
+import { Section } from '../scripts/components/Section.js';
+import { PopupWithImage } from '../scripts/components/PopupWithImage.js';
+import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
+import { UserInfo } from '../scripts/components/UserInfo.js';
 import {
   validationConfig,
   popupEditOpenButton,
   nameInput,
   jobInput,
   popupAddOpenButton,
-  placeInput,
-  urlInput,
   cardSection
-} from '../scripts/constants.js'
+} from '../scripts/utils/constants.js'
 
 const editFormValidator = new FormValidator(document.querySelector('.popup-edit__form'), validationConfig);
 editFormValidator.enableValidation();
@@ -27,7 +25,7 @@ const userInfo = new UserInfo({
   jobSelector: '.profile__job'
 });
 
-const popupWithEditForm = new PopupWithForm('.popup-edit',  formEditSubmitHandler)
+const popupWithEditForm = new PopupWithForm('.popup-edit', formEditSubmitHandler)
 popupWithEditForm.setEventListeners();
 
 const popupWithAddForm = new PopupWithForm('.popup-add', formAddSubmitHandler);
@@ -38,29 +36,35 @@ const popupWithImage = new PopupWithImage('.popup-scale');
 popupWithImage.setEventListeners();
 
 function formEditSubmitHandler(data) {
-  userInfo.setUserInfo(data)
+  userInfo.setUserInfo(data);
+  popupWithEditForm.close();
 };
 
-function formAddSubmitHandler() {
-  const card = new Card(placeInput.value, urlInput.value, '.card-template', handleCardClick);
+function handleCardClick(name, link) {
+  popupWithImage.open(link, name)
+};
+
+function createCard(data) {
+  const card = new Card(data, '.card-template', handleCardClick);
   const cardElement = card.generateCard();
   cardList.addItem(cardElement);
-}
+};
 
-function handleCardClick (name, link) {
-  popupWithImage.open(link, name)
-}
+function formAddSubmitHandler(data) {
+  createCard({
+    name: data.place,
+    link: data.url
+  })
+  popupWithAddForm.close();
+};
 
-const cardList = new Section ({
+const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
-  const card = new Card(item.name, item.link, '.card-template', handleCardClick);
-  const cardElement = card.generateCard();
-
-  cardList.addItem(cardElement)
+    createCard(item)
+  },
 },
-},
-cardSection
+  cardSection
 );
 
 cardList.renderItems();

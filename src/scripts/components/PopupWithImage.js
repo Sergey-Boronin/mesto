@@ -5,7 +5,6 @@ export class PopupWithImage extends Popup {
     super (popupSelector);
     this._img = this._popup.querySelector(".popup-scale__image");
     this._name = this._popup.querySelector(".popup-scale__caption");
-
   }
 
   open(link, name) {
