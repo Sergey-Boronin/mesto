@@ -22,7 +22,6 @@ const popupAddOpenButton = document.querySelector(".profile__add-button");
 // переменные для добавления карточек
 const cardSection = document.querySelector(".cards");
 
-
 export {
   validationConfig,
   popupEditOpenButton,

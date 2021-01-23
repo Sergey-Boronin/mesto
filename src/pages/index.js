@@ -16,8 +16,8 @@ import {
   cardSection,
   avatarEditButton,
   avatarInput,
-
 } from '../scripts/utils/constants.js';
+import {renderLoading } from '../scripts/utils/utils.js'
 
 let userId = ''
 
@@ -60,57 +60,54 @@ const api = new Api({
 
 function formEditSubmitHandler() {
   const profileSubmitButton = document.querySelector('#edit-submit-button');
-  profileSubmitButton.textContent = 'Сохранение...'
+
+  renderLoading(true, profileSubmitButton)
 
   api.updateUserData(nameInput.value, jobInput.value)
     .then((result) => {
       userInfo.setUserInfo(result)
+      popupWithEditForm.close()
     })
     .catch((err) => {
       console.log(`Ошибка: ${err}`)
     })
     .finally(() => {
-      profileSubmitButton.textContent = 'Сохранить'
+      renderLoading(false, profileSubmitButton)
     })
-
-  popupWithEditForm.close();
 };
 
 function formAvatarSubmitHandler() {
   const avatarSubmitButton = document.querySelector('#avatar-submit-button')
-  avatarSubmitButton.textContent = 'Соранение...'
+  renderLoading(true, avatarSubmitButton)
 
   api.updateUserAvatar(avatarInput.value)
     .then((result) => {
       userInfo.setUserAvatar(result.avatar)
+      popupWithAvatarForm.close()
     })
     .catch((err) => {
       console.log(`Ошибка: ${err}`)
     })
     .finally(() => {
-      avatarSubmitButton.textContent = 'Сохранить'
+      renderLoading(false, avatarSubmitButton)
     })
-
-  popupWithAvatarForm.close();
 }
 
 function formAddSubmitHandler(data) {
   const addSubmitButton = document.querySelector('#add-submit-button')
-  addSubmitButton.textContent = 'Сохранение...'
+  renderLoading(true, addSubmitButton)
 
   api.addNewCard(data)
     .then((result) => {
       createCard(result)
+      popupWithAddForm.close()
     })
     .catch((err) => {
       console.log(`Ошибка: ${err}`)
     })
     .finally(() => {
-      addSubmitButton.textContent = 'Сохранить'
+      renderLoading(false, addSubmitButton)
     })
-
-
-  popupWithAddForm.close();
 };
 
 function handleCardClick(name, link) {
@@ -129,6 +126,7 @@ function createCard(data) {
         api.removeCard(card.getId())
           .then(() => {
             card.cardDelete()
+            popupConfirm.close()
           })
           .catch((err) => {
             console.log(`Ошибка: ${err}`)
